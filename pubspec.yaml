@@ -1,0 +1,27 @@
+name: flutter_application_2
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=3.3.2 <4.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.6
+  get: 4.6.6
+  firebase_auth: 4.18.0
+  firebase_core: 2.27.2
+  cloud_firestore: 4.15.10
+  flutter: 
+    sdk: flutter
+
+dev_dependencies: 
+  flutter_lints: ^3.0.0
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  uses-material-design: true
+
+assets:
+   - assets/logo.jpg
+   - assets/verifikasi.jpg

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1007795885830",
+    "project_id": "magang-firebase",
+    "storage_bucket": "magang-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1007795885830:android:9142bee80d304c6396f087",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCx8DcCz-HkZtcFZY2otWg_L2Tlbc56CH0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
