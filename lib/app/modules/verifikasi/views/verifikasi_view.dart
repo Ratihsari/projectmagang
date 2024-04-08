@@ -1,16 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/app/controllers/auth_controller.dart';
+import 'package:get/get.dart';
 import '../controllers/verifikasi_controller.dart';
 
-void main() {
-  runApp(MaterialApp(
-    theme: ThemeData(primaryColor: Colors.white),
-    debugShowCheckedModeBanner: false,
-    home: VerifikasiView(),
-  ));
-}
-
 class VerifikasiView extends StatefulWidget {
+  final String username; // Tambahkan field username
+
+  // Tambahkan constructor untuk menginisialisasi username
+  VerifikasiView({required this.username});
+
   @override
   _VerifikasiViewState createState() => _VerifikasiViewState();
 }
@@ -23,6 +22,10 @@ class _VerifikasiViewState extends State<VerifikasiView> {
 
   @override
   Widget build(BuildContext context) {
+    // Ambil username dari widget
+    // String username = widget.username;
+    final User? user = FirebaseAuth.instance.currentUser;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -33,9 +36,10 @@ class _VerifikasiViewState extends State<VerifikasiView> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: 40,
+                height: 30,
               ),
-              Image.asset("assets/verifikasi.jpg"),
+              Image.asset(
+                  "../assets/verifikasi.png"), // Menampilkan gambar dari direktori "assets"
               SizedBox(
                 height: 0,
               ),
@@ -63,7 +67,7 @@ class _VerifikasiViewState extends State<VerifikasiView> {
                 height: 20,
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 130, vertical: 6),
+                padding: EdgeInsets.symmetric(horizontal: 100, vertical: 6),
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Color.fromRGBO(204, 198, 198, 1),
@@ -72,7 +76,7 @@ class _VerifikasiViewState extends State<VerifikasiView> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Text(
-                  'Emailname@mail.com',
+                  "${user?.email}", // Menampilkan nama pengguna
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
@@ -88,14 +92,30 @@ class _VerifikasiViewState extends State<VerifikasiView> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      'Kirim ulang verifikasi',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 51, 120, 175),
-                        fontSize: 12,
-                      ),
-                    )
+                    TextButton(
+                        onPressed: () async {
+                          final currentUser = FirebaseAuth.instance.currentUser;
+                          if (currentUser != null) {
+                            try {
+                              await currentUser.sendEmailVerification();
+                              Get.snackbar(
+                                "Pengiriman Ulang Verifikasi",
+                                "Email Verifikasi telah dikirim ulang.",
+                              );
+                            } catch (e) {
+                              print("Gagal mengirimkan ulang verifikasi: $e");
+                            }
+                          }
+                        },
+                        child: Text(
+                          'Kirim ulang verifikasi',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 51, 120, 175),
+                            fontSize: 12,
+                          ),
+                        )
+                        )
                   ],
                 ),
               ),
@@ -130,10 +150,7 @@ class _VerifikasiViewState extends State<VerifikasiView> {
                 height: 2,
               ),
               GestureDetector(
-                onTap: () {
-                  // Implement your login logic here
-                  authC.login(emailController.text, passwordController.text);
-                },
+                onTap: () => Get.toNamed('/login'),
                 child: Container(
                   alignment: Alignment.center,
                   width: 200,

@@ -23,8 +23,7 @@ class AuthController extends GetxController {
               Get.back(); //close dialog
               Get.back(); //go to login
             },
-            textConfirm: "Ya, Aku mengerti."
-            );
+            textConfirm: "Ya, Aku mengerti.");
       } catch (e) {
         Get.defaultDialog(
           title: "Terjadi Kesalahan",
@@ -40,60 +39,62 @@ class AuthController extends GetxController {
   }
 
   void login(String email, String password) async {
-  try {
-    UserCredential myUser = await auth.signInWithEmailAndPassword(
-        email: email, password: password);
-    if (myUser.user!.emailVerified) {
-      Get.offAllNamed(Routes.HOME);
-    } else {
-      Get.defaultDialog(
-        title: "Verification Email",
-        middleText: "Kamu perlu verifikasi email terlebih dahulu",
-      );
-    }
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'user-not-found') {
-      print('No user found for that email.');
-      Get.defaultDialog(
-        title: "Terjadi Kesalahan",
-        middleText: 'No user found for that email.',
-      );
-    } else if (e.code == 'wrong-password') {
-      print('Wrong password provided for that user.');
-      Get.defaultDialog(
-        title: "Terjadi salahan",
-        middleText: 'Wrong password provided for that user.',
-      );
-    } else {
+    try {
+      UserCredential myUser = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      if (myUser.user!.emailVerified) {
+        Get.offAllNamed(Routes.HOME);
+      } else {
+        Get.defaultDialog(
+          title: "Verification Email",
+          middleText: "Kamu perlu verifikasi email terlebih dahulu",
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+        Get.defaultDialog(
+          title: "Terjadi Kesalahan",
+          middleText: 'No user found for that email.',
+        );
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+        Get.defaultDialog(
+          title: "Terjadi salahan",
+          middleText: 'Wrong password provided for that user.',
+        );
+      } else {
+        print('Error occurred: $e');
+        Get.defaultDialog(
+          title: "Terjadi Kesalahan",
+          middleText: 'Tidak dapat login dengan akun ini.',
+        );
+      }
+    } catch (e) {
       print('Error occurred: $e');
       Get.defaultDialog(
         title: "Terjadi Kesalahan",
         middleText: 'Tidak dapat login dengan akun ini.',
       );
     }
-  } catch (e) {
-    print('Error occurred: $e');
-    Get.defaultDialog(
-      title: "Terjadi Kesalahan",
-      middleText: 'Tidak dapat login dengan akun ini.',
-    );
   }
-}
 
   void signup(String email, String password) async {
     try {
       UserCredential myUser = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       await myUser.user!.sendEmailVerification();
-      Get.defaultDialog(
-        title: "Verification Email",
-        middleText: "Kami telah mengirimkan email verifikasi ke $email.",
-        onConfirm: () {
-          Get.back(); //close dialog
-          Get.back(); // go to login
-        },
-        textConfirm: "Ya, Saya akan cek email.",
-      );
+
+      Get.offNamed('/verifikasi');
+      // Get.defaultDialog(
+      //   title: "Verification Email",
+      //   middleText: "Kami telah mengirimkan email verifikasi ke $email.",
+      //   onConfirm: () {
+      //     Get.back(); //close dialog
+      //     Get.back(); // go to login
+      //   },
+      //   textConfirm: "Ya, Saya akan cek email.",
+      // );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -108,10 +109,10 @@ class AuthController extends GetxController {
           middleText: 'The account already exists for that email.',
         );
       } else {
-         Get.defaultDialog(
-        title: "Terjadi salah",
-        middleText: 'Tidak dapat mendaftarkan akun ini.',
-      );
+        Get.defaultDialog(
+          title: "Terjadi salah",
+          middleText: 'Tidak dapat mendaftarkan akun ini.',
+        );
       }
     } catch (e) {
       print(e);

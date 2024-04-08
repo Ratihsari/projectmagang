@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/app/controllers/auth_controller.dart';
+import 'package:flutter_application_2/app/utils/loading.dart';
 // import 'package:flutter_application_2/app/modules/home/views/home_view.dart';
 // import 'package:flutter_application_2/app/modules/login/views/login_view.dart';
 // import 'package:flutter_application_2/app/modules/home/views/home_view.dart';

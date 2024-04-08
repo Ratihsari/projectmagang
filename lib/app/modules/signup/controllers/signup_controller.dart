@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+
 class SignupController extends GetxController {
-  TextEditingController emailC =
-      TextEditingController(text: "testlogin@gmail.com");
-  TextEditingController passC = TextEditingController(text: "123123");
+  TextEditingController emailC = TextEditingController();
+  TextEditingController passC = TextEditingController();
 
   @override
   void onClose() {

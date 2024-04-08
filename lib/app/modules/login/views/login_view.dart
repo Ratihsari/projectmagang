@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/app/controllers/auth_controller.dart';
 import 'package:flutter_application_2/app/modules/signup/views/signup_view.dart';
+import 'package:flutter_application_2/app/routes/app_pages.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -43,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: 40,
               ),
-              Image.asset("assets/logo.jpg"),
+              Image.asset("../assets/logo.png"),
               SizedBox(
                 height: 0,
               ),
@@ -120,19 +123,21 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(20, 20, 225, 20),
+                      padding: EdgeInsets.fromLTRB(10, 10, 225, 20),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            'Forget Password?',
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 51, 120, 175),
-                              fontSize: 12,
-                            ),
-                          )
-                        ],
-                      ),
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                                onPressed: () =>
+                                    Get.toNamed(Routes.RESET_PASSWORD),
+                                child: Text(
+                                  'Forget Password?',
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 51, 120, 175),
+                                    fontSize: 12,
+                                  ),
+                                )),
+                          ]),
                     ),
                     SizedBox(
                       height: 2,

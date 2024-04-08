@@ -58,7 +58,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.VERIFIKASI,
-      page: () =>  VerifikasiView(),
+      page: () =>  VerifikasiView(username: '',),
       binding: VerifikasiBinding(),
     ),
   ];
